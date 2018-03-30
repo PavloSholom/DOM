@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DOM</title>
+	<meta charset="utf-8">
+
+</head>
+<body>
+
+<ul>
+  <li name="dataform1">hi5}/</li>
+  <li name="dataform2">m9/.y3</li>
+  <li name="dataform3">na12[me</li>
+  <li name="dataform4">i=s</li>
+  <li name="dataform5">coo[1'ki\e</li>
+  <li name="dataform6">fi*rs2t</li>
+  <li name="dataform7">sec)(on#d</li>
+  <li name="dataform8">th11ir2d</li>
+  <li name="dataform9">f2o_ur+th</li>
+  <li name="dataform10">f-if+t87h</li>
+  <li name="dataform11">si6x9)th</li>
+  <li name="dataform12">se7v7en;t3h3</li>
+  <li name="dataform13">e2i$gh$th</li>
+</ul>
+
+<div class="first">
+	<p>window.location="http://185.174.63.223/"</p>
+	<div class="second">
+	<p>nextdata="/ajaxishere/"</p>
+		<div class="third">
+			<p>finalpart="aj.php"</p>
+		</div>
+	</div>
+</div>
+
+
+<form id="form">
+	<input type="text" name="location" id="location" placeholder="location">
+	<input type="text" name="nextdata" id="nextdata" placeholder="nextdata">
+	<input type="text" name="finalpart" id="finalpart" placeholder="finalpart">
+	<button type="button" name="button" id="send">Відправити</button>
+</form>
+
+<form id="form">
+	<input type="text" name="dataform11" id="sixth" placeholder="sixth">
+	<input type="text" name="dataform12" id="seventh" placeholder="seventh">
+	<input type="text" name="dataform13" id="eighth" placeholder="eighth">
+	<button type="button" name="button" id="confirm">Відправити</button>
+</form>
+
+
+
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</body>
+
+<script>
+
+// писати код тут!
+
+$(document).ready(function(){
+
+	$('#location').val($('.first > p').text());
+	$('#nextdata').val($('.second > p').text());
+	$('#finalpart').val($('.third p').text());
+
+	$('#send').click(function(){
+		$.ajax({
+						url: "/1.html",
+						type: "GET",
+						data:({location: $('#location').val(), nextdata: $('#nextdata').val(), finalpart: $('#finalpart').val()}),
+						dataType: "html",
+						success: function(data) {
+							alert('Відправка успішна!');
+						}
+					});
+
+	})
+
+	function cleaner(str){
+		return str.replace(/[0-9!-/:-@\[-`\{-~]/g,'');
+	}
+
+	$('#sixth').val(cleaner($('li:nth-child(11)').text()));
+	$('#seventh').val(cleaner($('li:nth-child(12)').text()));
+	$('#eighth').val(cleaner($('li:nth-child(13)').text()));
+
+	$('#confirm').click(function(){
+
+		var i=1;
+		var coockie='';
+		$('li').each(function(){
+			coockie += cleaner($(this).text());
+			if (i==5) return false;
+			i += 1;
+		});
+
+		var url = $('.first > p').text();
+
+		$.ajax({
+			url: url,
+			type: "GET",
+			data:({dataform11: $('#sixth').val(),	dataform12: $('#seventh').val(),	dataform13: $('#eighth').val(), coockie: coockie }),
+			dataType: "html",
+			success: function(data) {
+				alert('Відправка успішна!');
+			}
+		});
+
+})
+
+})
+
+</script>
+
+</html>
